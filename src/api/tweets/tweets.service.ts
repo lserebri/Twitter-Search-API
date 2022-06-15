@@ -1,6 +1,18 @@
 import {twitter} from "../../connections/twitter";
 import {ITweet, THashTag, TParams} from "./tweets.types";
 import {client} from "../../connections/redis";
+import {
+    ReferencedTweetV2,
+    TweetAttachmentV2,
+    TweetContextAnnotationV2,
+    TweetEntitiesV2,
+    TweetGeoV2,
+    TweetNonPublicMetricsV2,
+    TweetOrganicMetricsV2,
+    TweetPromotedMetricsV2,
+    TweetPublicMetricsV2,
+    TweetWithheldInfoV2
+} from "twitter-api-v2/dist/types/v2/tweet.definition.v2";
 
 export function getValidatedHashtag(params: TParams): THashTag {
     let hashtag = params.hashtag;
@@ -36,20 +48,27 @@ export async function getTwitsByHashtag(hashtag: THashTag): Promise<ITweet[] | u
             'expansions': "author_id",
             'max_results': 100,
         });
-        // @ts-ignore
-        const twitterData = data?._realData;
-        const res = twitterData.data.map(async (v, i) => {
+
+        const tweetsData = data.tweets;
+        const usersData = data.includes.users;
+
+        if (!tweetsData) {
+            console.error(`There is no tweets found for ${hashtag} hashtag`)
+        }
+
+        const res = tweetsData.map(async (v, i) => {
             return addToCache(v.id, {
                 "id": v?.id ?? "",
                 "text": v?.text ?? "",
-                "username": twitterData?.includes?.users?.[i]?.username ?? "",
-                "userScreenName": twitterData?.includes?.users?.[i]?.name ?? "",
-                "userImage": twitterData?.includes?.users?.[i]?.profile_image_url ?? "",
+                "username": usersData?.[i]?.username ?? "",
+                "userScreenName": usersData?.[i]?.name ?? "",
+                "userImage": usersData?.[i]?.profile_image_url ?? "",
                 "date": v?.created_at ?? "",
                 "likes": v?.public_metrics?.like_count,
                 "retweetCount": v?.public_metrics?.retweet_count,
             });
         });
+
         return await Promise.all(res);
     } catch (error) {
         console.error(error);
