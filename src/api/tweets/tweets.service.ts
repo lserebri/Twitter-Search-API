@@ -1,18 +1,6 @@
 import {twitter} from "../../connections/twitter";
 import {ITweet, THashTag, TParams} from "./tweets.types";
 import {client} from "../../connections/redis";
-import {
-    ReferencedTweetV2,
-    TweetAttachmentV2,
-    TweetContextAnnotationV2,
-    TweetEntitiesV2,
-    TweetGeoV2,
-    TweetNonPublicMetricsV2,
-    TweetOrganicMetricsV2,
-    TweetPromotedMetricsV2,
-    TweetPublicMetricsV2,
-    TweetWithheldInfoV2
-} from "twitter-api-v2/dist/types/v2/tweet.definition.v2";
 
 export function getValidatedHashtag(params: TParams): THashTag {
     let hashtag = params.hashtag;
