@@ -5,7 +5,7 @@
 - Required installation: npm, node, redis-server.
 - Node Version: `v18.3.0`
 - Install node dependencies: `npm install`
-- To test dev version: `npm run build-prod` and `npm run prod`
+- Before building the project make sure you started the redis server with `redis-server` command
 - To build development version: (`npm run dev`)
 - Port: `3000`
 - Redis Client Port: `6379`
