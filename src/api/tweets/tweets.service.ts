@@ -1,5 +1,5 @@
 import {twitter} from "../../connections/twitter";
-import {ITweet, THashTag, TParams} from "./tweets.types";
+import {ITweet, THashTag} from "./tweets.types";
 import {TweetsCache} from "./tweets.cache";
 import {TweetsLogger} from "./tweets.logger";
 
