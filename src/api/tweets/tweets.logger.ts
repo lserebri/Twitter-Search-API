@@ -1,10 +1,10 @@
 export class TweetsLogger {
-    public static cacheSaved(id: string) {
-        console.log(`Tweet ${id} successfully saved to cache`);
+    public static cacheSaved(hashtag: string, length: number) {
+        console.log(`${length} tweets were successfully cached by the '${hashtag}' hashtag`);
     }
 
-    public static cacheReceived(id: string) {
-        console.log(`Tweet ${id} successfully received from cache`);
+    public static cacheReceived(hashtag: string, length: number) {
+        console.log(`${length} tweets by the '${hashtag}' hashtag were successfully received from cache`);
     }
 
     public static hashtagValidationError(hashtag: string) {
