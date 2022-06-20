@@ -40,6 +40,6 @@ export class Tweet {
                 }
             })
         )
-        return await Promise.resolve(res);
+        return res;
     }
 }
